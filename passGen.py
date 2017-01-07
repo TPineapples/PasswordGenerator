@@ -1,4 +1,5 @@
 import random
+import sys
 
 def outPass(words):
     for i in range(len(words)):
@@ -34,14 +35,13 @@ def genPass(count, min, max, numbers, casing, symbols):
         score += 1
         types.append("sym")
 
-    while len(words) != count:
+    while len(words) <= int(count) - 1:
         newPass = ""
         size = random.randint(min, max)
         while len(newPass) != size:
             nextCharType = types[random.randint(0,score)]
             newPass += str(genNextChar(nextCharType))
         words.append(newPass)
-        print("Generated " + str(len(words)) + " passwords out of " + str(count))
 
     print("Completed Password Generation")
     outPass(words)
@@ -83,6 +83,7 @@ def wizMod(min,max):
     if count > 999:
         count = 999
 
+    print(str(count) + ' ' + str(min) + ' ' + str(numbers) + ' ' + str(casing) + ' ' + str(symbols))
     genPass(count,min,max,numbers,casing,symbols)
 
 
@@ -121,13 +122,57 @@ def wiz():
                   "For specific size type 'a'\n"
                   "For specific range type 'b'\n")
 
+def main():
+    args = input("> ")
+    if args == "-wiz":
+        wiz()
+    else:
+        # -[a|b] [<size> | <min> <max>] [-n || -c || -s] [<amount>]
+        # default to -a 10 10
+        mods = args.split()
+        num = False
+        case = False
+        sym = False
+        size = 10
+        min = 10
+        max = 10
+        amount = 10
+        if mods[0] == '-help':
+            print("Use the following flags or use -wiz to go through the wizard\n"
+                  "-[a|b] [<size> | <min> <max>] [-n || -c || -s] [<amount>]\n"
+                  "-a || -b\t Use -a when all passwords will be the same size. Use -b when all passwords exist within a range\n"
+                  "-n\tInclude numbers in the passwords\n"
+                  "-c\tInclude capital letters in the passwords\n"
+                  "-s\tInclude symbols in the passwords\n"
+                  "Be sure to include the parameters (For example -a 10 10\n")
+            main()
+        for i in range(len(mods)):
+            if mods[i] == '-q':
+                sys.exit("Good Bye")
+            if mods[i] == '-n':
+                num = True
+            if mods[i] == '-c':
+                case = True
+            if mods[i] == '-s':
+                sym = True
+
+
+        amount = mods[-1]
+        if mods[0] == '-a':
+            size = abs(int(mods[1]))
+            genPass(amount,size,size,num,case,sym)
+            main()
+        elif mods[0] == '-b':
+            min = abs(int(mods[1]))
+            max = abs(int(mods[2]))
+            if min > max:
+                min, max = max, min
+            genPass(amount,min,max,num,case,sym)
+            main()
+
 
 #main
 print("Welcome to passGen\n"
-      "If you are aware of the parameters please enter the correct inputs\n"
-      "Alternatively please type -wiz to go through the wizard")
-args = input("> ")
-if args == "-wiz":
-    wiz()
-else:
-    print("Not yet implemented")
+          "If you are aware of the parameters please enter the correct inputs\n"
+          "Alternatively please type -wiz to go through the wizard")
+main()
