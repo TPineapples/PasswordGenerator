@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/doit.iml" filepath="$PROJECT_DIR$/.idea/doit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/PasswordGenerator.iml" filepath="$PROJECT_DIR$/.idea/PasswordGenerator.iml" />
     </modules>
   </component>
 </project>

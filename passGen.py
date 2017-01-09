@@ -124,12 +124,15 @@ def wiz():
 
 def main():
     args = input("> ")
+    print("hERE")
     if args == "-wiz":
         wiz()
     else:
         # -[a|b] [<size> | <min> <max>] [-n || -c || -s] [<amount>]
         # default to -a 10 10
         mods = args.split()
+
+
         num = False
         case = False
         sym = False
@@ -137,14 +140,14 @@ def main():
         min = 10
         max = 10
         amount = 10
-        if mods[0] == '-help':
+        if mods[0] == "-help":
             print("Use the following flags or use -wiz to go through the wizard\n"
                   "-[a|b] [<size> | <min> <max>] [-n || -c || -s] [<amount>]\n"
                   "-a || -b\t Use -a when all passwords will be the same size. Use -b when all passwords exist within a range\n"
                   "-n\tInclude numbers in the passwords\n"
                   "-c\tInclude capital letters in the passwords\n"
                   "-s\tInclude symbols in the passwords\n"
-                  "Be sure to include the parameters (For example -a 10 10\n")
+                  "Be sure to include the parameters (For example -a 10 10)\n")
             main()
         for i in range(len(mods)):
             if mods[i] == '-q':
@@ -174,5 +177,6 @@ def main():
 #main
 print("Welcome to passGen\n"
           "If you are aware of the parameters please enter the correct inputs\n"
-          "Alternatively please type -wiz to go through the wizard")
+          "Alternatively please type -wiz to go through the wizard\n"
+          "Additionally you can type -help to recieve more info\n")
 main()
